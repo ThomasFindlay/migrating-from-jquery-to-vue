@@ -5,9 +5,136 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue App</title>
+    <script src="https://unpkg.com/vue@3.2.21
+    "></script>
   </head>
   <body>
-    <div id="app">Vue html</div>
-    <!-- <script type="module" src="/main.js"></script> -->
+    <div id="app">
+      <div class="container">
+        <h1>Vue html</h1>
+        <div class="section">
+          <h2>Handling event listeners</h2>
+
+          <div id="handling-events">
+            <button @click="onBtnClick">Click me</button>
+          </div>
+
+          <div style="margin-top: 1rem">
+            <label>Focus me</label>
+            <input
+              type="text"
+              id="focus-input"
+              @focus="onFocusInput"
+              @blur="onFocusBlur"
+            />
+          </div>
+          <script>
+            const app = Vue.createApp({
+              methods: {
+                onBtnClick() {
+                  console.log("Button clicked");
+                },
+                onFocusInput() {
+                  console.log("Input focused");
+                },
+                onFocusBlur() {
+                  console.log("Input lost focus");
+                },
+              },
+            }).mount("#handling-events");
+          </script>
+        </div>
+        <div class="section">
+          <h2>Toggling classes</h2>
+          <div id="toggling-classes">
+            <button
+              class="tab"
+              :class="{active: activeTabId === 'tab-one'}"
+              id="tab-one"
+              @click="activeTabId = 'tab-one'"
+            >
+              Tab 1
+            </button>
+            <button
+              class="tab"
+              :class="{active: activeTabId === 'tab-two'}"
+              id="tab-two"
+              @click="activeTabId = 'tab-two'"
+            >
+              Tab 2
+            </button>
+            <button
+              class="tab"
+              :class="{active: activeTabId === 'tab-three'}"
+              id="tab-three"
+              @click="activeTabId = 'tab-three'"
+            >
+              Tab 3
+            </button>
+          </div>
+          <style>
+            .tab {
+              background: none;
+              border: none;
+            }
+
+            .active {
+              background-color: aquamarine;
+            }
+          </style>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  activeTabId: null,
+                };
+              },
+            }).mount("#toggling-classes");
+          </script>
+        </div>
+        <div class="section">
+          <h2>Handling forms</h2>
+          <div id="login-form-container">
+            <form id="login-form" @submit.prevent="onSubmit">
+              <div class="form-row">
+                <label for="email">Email </label>
+                <input v-model="email" type="email" name="email" />
+              </div>
+              <div class="form-row">
+                <label for="password">Password </label>
+                <input v-model="password" type="password" name="password" />
+              </div>
+              <div>
+                <button type="submit">Submit Form</button>
+              </div>
+            </form>
+          </div>
+          <script type="text/javascript">
+            Vue.createApp({
+              data() {
+                return {
+                  email: "",
+                  password: "",
+                };
+              },
+              methods: {
+                onSubmit() {
+                  console.log("form submitted", {
+                    email: this.email,
+                    password: this.password,
+                  });
+                },
+              },
+            }).mount("#login-form-container");
+          </script>
+        </div>
+        <div class="section">
+          <h2>Rendering a list of items</h2>
+          <div id="list-container"></div>
+          <script type="text/javascript"></script>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
