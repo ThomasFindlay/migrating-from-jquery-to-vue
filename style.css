@@ -25,3 +25,25 @@ h2,
 h3 {
   margin-bottom: 2rem;
 }
+
+ul {
+  display: inline-block;
+}
+
+.quotes-list {
+  list-style-type: none;
+}
+
+.quote-list-item {
+  margin-bottom: 1rem;
+}
+
+.quote-text {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.quote-author {
+  font-style: italic;
+}

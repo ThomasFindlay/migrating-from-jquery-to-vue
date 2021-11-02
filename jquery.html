@@ -103,14 +103,57 @@
           <div id="list-container"></div>
           <script type="text/javascript">
             const fruits = ["apple", "banana", "orange"];
+            let content = [];
+            $.each(fruits, (idx, fruit) => {
+              content.push(`<li>${fruit}</li>`);
+            });
 
-            $("#list-container");
+            $("#list-container").append(`
+                <ul>
+                  ${content.join("\n")}
+                </ul>
+              `);
           </script>
+        </div>
+        <div class="section">
+          <h2>Performing API requests</h2>
+          <div id="quotes"></div>
         </div>
       </div>
     </div>
 
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      $.ajax("https://type.fit/api/quotes", {
+        method: "GET",
+        success(data, textStatus, jqXHR) {
+          console.log("success", data);
+          let content = [];
+
+          JSON.parse(data)
+            .slice(0, 10)
+            .forEach(({ text, author }) => {
+              content.push(`
+            <li class="quote-list-item">
+                <div>
+                  <span class="quote-text">${text}</span>
+                  <br />
+                  <span class="quote-author">${author}</span>
+                </div>
+              </li>
+            `);
+            });
+
+          $("#quotes").append(`
+            <ul class="quotes-list">
+              ${content.join("\n")}
+            </ul>
+          `);
+        },
+        error(jqXHR, textStatus, error) {
+          console.log("error", jqXHR, textStatus, error);
+        },
+      });
+    </script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
