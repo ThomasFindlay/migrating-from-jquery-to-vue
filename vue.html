@@ -29,24 +29,37 @@
             </div>
           </div>
 
-          <script>
+          <script type="text/javascript">
             const app = Vue.createApp({
-              methods: {
-                onBtnClick() {
-                  console.log("Button clicked");
-                },
-                onFocusInput() {
-                  console.log("Input focused");
-                },
-                onFocusBlur() {
-                  console.log("Input lost focus");
-                },
+              setup() {
+                return {
+                  onBtnClick() {
+                    console.log("Button clicked");
+                  },
+                  onFocusInput() {
+                    console.log("Input focused");
+                  },
+                  onFocusBlur() {
+                    console.log("Input lost focus");
+                  },
+                };
               },
             }).mount("#handling-events");
           </script>
         </div>
         <div class="section">
           <h2>Toggling classes</h2>
+          <style>
+            .tab {
+              background: none;
+              border: none;
+            }
+
+            .active {
+              background-color: aquamarine;
+            }
+          </style>
+
           <div id="toggling-classes">
             <button
               class="tab"
@@ -73,24 +86,43 @@
               Tab 3
             </button>
           </div>
-          <style>
-            .tab {
-              background: none;
-              border: none;
-            }
 
-            .active {
-              background-color: aquamarine;
-            }
-          </style>
-          <script>
+          <script type="text/javascript">
             Vue.createApp({
-              data() {
+              setup() {
+                const activeTabId = Vue.ref(null);
                 return {
-                  activeTabId: null,
+                  activeTabId,
                 };
               },
             }).mount("#toggling-classes");
+          </script>
+        </div>
+
+        <div class="section">
+          <h2>Toggling classes with v-for</h2>
+          <div id="toggling-classes-two">
+            <button
+              v-for="(tab, idx) of tabs"
+              :key="idx"
+              class="tab"
+              :class="{active: activeTabIdx === idx}"
+              @click="activeTabIdx = idx"
+            >
+              {{tab}}
+            </button>
+          </div>
+          <script type="text/javascript">
+            Vue.createApp({
+              setup() {
+                const activeTabIdx = Vue.ref(null);
+                const tabs = ["Tab 1", "Tab 2", "Tab 3"];
+                return {
+                  activeTabIdx,
+                  tabs,
+                };
+              },
+            }).mount("#toggling-classes-two");
           </script>
         </div>
         <div class="section">
@@ -164,29 +196,32 @@
               </li>
             </ul>
           </div>
-        </div>
-        <script type="text/javascript">
-          Vue.createApp({
-            setup() {
-              const quotes = Vue.ref([]);
-              Vue.onMounted(async () => {
-                try {
-                  const response = await fetch("https://type.fit/api/quotes", {
-                    method: "get",
-                  });
-                  const result = await response.json();
-                  quotes.value = result.slice(0, 10);
-                } catch (error) {
-                  console.log("error", error);
-                }
-              });
+          <script type="text/javascript">
+            Vue.createApp({
+              setup() {
+                const quotes = Vue.ref([]);
+                Vue.onMounted(async () => {
+                  try {
+                    const response = await fetch(
+                      "https://type.fit/api/quotes",
+                      {
+                        method: "get",
+                      }
+                    );
+                    const result = await response.json();
+                    quotes.value = result.slice(0, 10);
+                  } catch (error) {
+                    console.log("error", error);
+                  }
+                });
 
-              return {
-                quotes,
-              };
-            },
-          }).mount("#quotes");
-        </script>
+                return {
+                  quotes,
+                };
+              },
+            }).mount("#quotes");
+          </script>
+        </div>
       </div>
     </div>
     <script type="module" src="/main.js"></script>
