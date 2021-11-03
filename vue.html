@@ -17,17 +17,18 @@
 
           <div id="handling-events">
             <button @click="onBtnClick">Click me</button>
+
+            <div style="margin-top: 1rem">
+              <label>Focus me</label>
+              <input
+                type="text"
+                id="focus-input"
+                @focus="onFocusInput"
+                @blur="onFocusBlur"
+              />
+            </div>
           </div>
 
-          <div style="margin-top: 1rem">
-            <label>Focus me</label>
-            <input
-              type="text"
-              id="focus-input"
-              @focus="onFocusInput"
-              @blur="onFocusBlur"
-            />
-          </div>
           <script>
             const app = Vue.createApp({
               methods: {
