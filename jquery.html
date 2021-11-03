@@ -99,6 +99,31 @@
           </script>
         </div>
         <div class="section">
+          <h2>Showing and hiding content</h2>
+
+          <div id="conditional-section">
+            <button id="messageBtn">Hide message</button>
+            <p id="message">Hello world</p>
+          </div>
+
+          <script type="text/javascript">
+            $(document).ready(() => {
+              const $btn = $("#messageBtn");
+              $btn.click(() => {
+                const $message = $("#message");
+                const isVisible = $message.is(":visible");
+                if (isVisible) {
+                  $message.hide();
+                  $btn.text("Show message");
+                } else {
+                  $message.show();
+                  $btn.text("Hide message");
+                }
+              });
+            });
+          </script>
+        </div>
+        <div class="section">
           <h2>Rendering a list of items</h2>
           <div id="list-container"></div>
           <script type="text/javascript">

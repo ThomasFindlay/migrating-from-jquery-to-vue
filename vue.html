@@ -144,21 +144,47 @@
           </div>
           <script type="text/javascript">
             Vue.createApp({
-              data() {
+              setup() {
+                const email = Vue.ref("");
+                const password = Vue.ref("");
+
+                const onSubmit = () => {
+                  console.log("form submitted", {
+                    email: email.value,
+                    password: password.value,
+                  });
+                };
                 return {
-                  email: "",
-                  password: "",
+                  email,
+                  password,
+                  onSubmit,
                 };
               },
-              methods: {
-                onSubmit() {
-                  console.log("form submitted", {
-                    email: this.email,
-                    password: this.password,
-                  });
-                },
-              },
             }).mount("#login-form-container");
+          </script>
+        </div>
+        <div class="section">
+          <h2>Showing and hiding content</h2>
+
+          <div id="conditional-section">
+            <button
+              id="messageBtn"
+              @click="isMessageVisible = !isMessageVisible"
+            >
+              {{isMessageVisible ? 'Hide' : 'Show'}} message
+            </button>
+            <p v-show="isMessageVisible" id="message">Hello world</p>
+          </div>
+
+          <script type="text/javascript">
+            Vue.createApp({
+              setup() {
+                const isMessageVisible = Vue.ref(true);
+                return {
+                  isMessageVisible,
+                };
+              },
+            }).mount("#conditional-section");
           </script>
         </div>
         <div class="section">
